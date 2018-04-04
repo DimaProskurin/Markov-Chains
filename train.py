@@ -4,7 +4,7 @@ import pickle
 import argparse
 from collections import defaultdict
 
-r_alphabet = re.compile(u'[а-яА-Я]+')
+r_alphabet = re.compile(u'[а-яА-Яa-zA-Z]+')
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--input-dir', type=str, default='stdin', help='Путь к папке с файлами для БД текстов')
