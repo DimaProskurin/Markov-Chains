@@ -1,6 +1,7 @@
 import pickle
 import random
 import argparse
+import numpy
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', type=str, help='Путь до файла, где лежит частотная модель')
@@ -24,15 +25,14 @@ args['length'] -= 1
 
 current_word = seed
 next_word = ''
-next_word_lst = []
 
 while args['length'] > 0:
-    for key in list(dictionary[current_word].keys()):
-        count = dictionary[current_word][key]
-        for i in range(count):
-            next_word_lst.append(key)
-    next_word = random.choice(next_word_lst)
-    next_word_lst.clear()
+    sum = 0
+    for key in dictionary[current_word].keys():
+        sum += dictionary[current_word][key]
+    probability = [dictionary[current_word][key]/sum for key in dictionary[current_word].keys()]
+
+    next_word = numpy.random.choice(list(dictionary[current_word].keys()), None, p=probability)
     sentence += next_word + ' '
     args['length'] -= 1
     current_word = next_word
