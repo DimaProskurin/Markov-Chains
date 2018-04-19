@@ -5,6 +5,8 @@ import numpy
 import sys
 
 if __name__ == "__main__":
+    MAX_WORDS_IN_SENTENCE = 10
+
     '''Парсер аргументов консоли'''
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', type=str,
@@ -31,7 +33,9 @@ if __name__ == "__main__":
     else:
         seed = args.seed
 
-    print(seed, end=' ')
+    current_words_in_sentence = 0
+    sentence = seed + ' '
+    current_words_in_sentence += 1
     args.length -= 1
 
     current_word = seed
@@ -45,5 +49,13 @@ if __name__ == "__main__":
         next_word = numpy.random.choice(
             list(dictionary[current_word].keys()),
             p=probability)
-        print(next_word, end=' ')
+        sentence += next_word + ' '
+        current_words_in_sentence += 1
+        if current_words_in_sentence >= MAX_WORDS_IN_SENTENCE:
+            print(sentence)
+            sentence = ''
+            current_words_in_sentence = 0
+
         current_word = next_word
+
+    print(sentence)
