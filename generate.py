@@ -33,29 +33,29 @@ if __name__ == "__main__":
     else:
         seed = args.seed
 
-    current_words_in_sentence = 0
-    sentence = seed + ' '
-    current_words_in_sentence += 1
-    args.length -= 1
+    if seed not in dictionary.keys():
+        print('Error! Первое слово отсутствует в словаре.')
+    else:
+        sentence = [seed]
+        args.length -= 1
 
-    current_word = seed
-    next_word = ''
+        current_word = seed
+        next_word = ''
 
-    '''Создание и вывод генерируемой последовательности'''
-    for i in range(args.length):
-        s = sum(dictionary[current_word].values())
-        probability = [item / s for item in dictionary[current_word].values()]
+        '''Создание и вывод генерируемой последовательности'''
+        for i in range(args.length):
+            s = sum(dictionary[current_word].values())
+            probability = [item / s for item in
+                           dictionary[current_word].values()]
 
-        next_word = numpy.random.choice(
-            list(dictionary[current_word].keys()),
-            p=probability)
-        sentence += next_word + ' '
-        current_words_in_sentence += 1
-        if current_words_in_sentence >= MAX_WORDS_IN_SENTENCE:
-            print(sentence)
-            sentence = ''
-            current_words_in_sentence = 0
+            next_word = numpy.random.choice(
+                list(dictionary[current_word].keys()),
+                p=probability)
+            sentence.append(next_word)
+            if len(sentence) >= MAX_WORDS_IN_SENTENCE:
+                print(' '.join(sentence))
+                sentence.clear()
 
-        current_word = next_word
+            current_word = next_word
 
-    print(sentence)
+        print(' '.join(sentence))
