@@ -59,7 +59,8 @@ if __name__ == "__main__":
     parser.add_argument('--input-dir', type=str, default='stdin',
                         help='Путь к папке с файлами для БД текстов')
     parser.add_argument('--model', type=str,
-                        help='Путь до файла, где сохраняется частотная модель')
+                        help='Путь до файла, где сохраняется частотная модель',
+                        required=True)
     parser.add_argument('--lc', action='store_true', default=False,
                         help='Приводит тексты к нижнему регистру')
     args = parser.parse_args()

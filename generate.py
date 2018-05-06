@@ -10,9 +10,11 @@ if __name__ == "__main__":
     '''Парсер аргументов консоли'''
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', type=str,
-                        help='Путь до файла, где лежит частотная модель')
+                        help='Путь до файла, где лежит частотная модель',
+                        required=True)
     parser.add_argument('--length', type=int,
-                        help='Длина генерируемой последовательности')
+                        help='Длина генерируемой последовательности',
+                        required=True)
     parser.add_argument('--seed', action='store', default='random_seed',
                         help='Начальное слово')
     parser.add_argument('--output', type=str, default=None,
