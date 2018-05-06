@@ -24,6 +24,10 @@ if __name__ == "__main__":
     '''Загружаем частотную модель'''
     with open(args.model, 'rb') as f:
         dictionary = pickle.load(f)
+        for word in dictionary:
+            amount = sum(dictionary[word].values())
+            for second_word in dictionary[word]:
+                dictionary[word][second_word] /= amount
 
     '''Открываем файл для записи результата(опционально)'''
     if args.output is not None:
@@ -46,16 +50,15 @@ if __name__ == "__main__":
 
         '''Создание и вывод генерируемой последовательности'''
         for i in range(args.length):
-            if current_word not in list(dictionary.keys()):
-                current_word = random.choice(list(dictionary.keys()))
+            if current_word not in dictionary:
+                current_word = random.choice(list(dictionary))
 
-            s = sum(dictionary[current_word].values())
-            probability = [item / s for item in
-                           dictionary[current_word].values()]
+            probability = list(dictionary[current_word].values())
 
             next_word = numpy.random.choice(
                 list(dictionary[current_word].keys()),
-                p=probability)
+                1,
+                p=probability)[0]
             sentence.append(next_word)
             if len(sentence) >= MAX_WORDS_IN_SENTENCE:
                 print(' '.join(sentence))
