@@ -52,7 +52,7 @@ def make_dictionary(tokens):
 if __name__ == "__main__":
     '''Это регулярные выражения, \
     они нужны, чтобы оставить в тексте только слова'''
-    r_alphabet = re.compile(u'[а-яА-Яa-zA-Z]+')
+    r_alphabet = re.compile(u'[а-яА-Яa-zA-ZёЁ]+')
 
     '''Парсер аргументов консоли'''
     parser = argparse.ArgumentParser()
