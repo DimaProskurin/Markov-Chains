@@ -46,6 +46,9 @@ if __name__ == "__main__":
 
         '''Создание и вывод генерируемой последовательности'''
         for i in range(args.length):
+            if current_word not in list(dictionary.keys()):
+                current_word = random.choice(list(dictionary.keys))
+
             s = sum(dictionary[current_word].values())
             probability = [item / s for item in
                            dictionary[current_word].values()]
